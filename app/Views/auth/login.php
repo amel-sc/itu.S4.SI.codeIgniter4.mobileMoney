@@ -58,8 +58,8 @@
                        required>
                 <div class="form-text">Numero de test :
                     <ul>
-                        <li>Admin : 0670000000</li>
-                        <li>Client : 0671234567</li>
+                        <li>Admin : 0370000000</li>
+                        <li>Client : 0371234567</li>
                     </ul>
                 </div>
                 
