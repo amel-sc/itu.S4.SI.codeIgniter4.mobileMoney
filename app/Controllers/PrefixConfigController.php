@@ -30,7 +30,7 @@ class PrefixConfigController extends BaseController {
         if (!$prefixConfigModel->insert($data)) {
             return redirect()->back()->withInput()->with('errors', $prefixConfigModel->errors());
         }
-        return redirect()->to('/prefix')->with('success', 'Préfixe ajouté avec succès.');
+        return redirect()->to('/prefix/insert-form')->with('success', 'Préfixe ajouté avec succès.');
     }
 
     public function edit_form($id) {
