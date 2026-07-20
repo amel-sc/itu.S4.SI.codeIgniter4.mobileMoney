@@ -13,6 +13,7 @@ class TransactionController extends BaseController{
 
         $type_operations = $operationTypeModel->findAll();
         $user = session()->get('user');
+        $returnUrl = ((int) ($user['id_role'] ?? 0) === 2) ? '/client/dashboard' : '/home';
 
         // rafraîchir les données utilisateur depuis la base
         if ($user && isset($user['id'])) {
@@ -26,7 +27,8 @@ class TransactionController extends BaseController{
         return view('transaction/form', [
             'title' => 'Transaction',
             'type_operations' => $type_operations,
-            'solde' => $user['solde'] ?? 0
+            'solde' => $user['solde'] ?? 0,
+            'return_url' => $returnUrl
         ]);    
     }
 

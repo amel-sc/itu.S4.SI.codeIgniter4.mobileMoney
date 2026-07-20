@@ -12,22 +12,10 @@ if ($role === 2) {
             'active' => $currentUri === 'client/dashboard'
         ],
         [
-            'label' => 'Dépôt',
-            'icon' => 'bi bi-arrow-down-circle',
-            'route' => '/client/depot',
-            'active' => strpos($currentUri, 'client/depot') === 0
-        ],
-        [
-            'label' => 'Retrait',
-            'icon' => 'bi bi-arrow-up-circle',
-            'route' => '/client/retrait',
-            'active' => strpos($currentUri, 'client/retrait') === 0
-        ],
-        [
-            'label' => 'Transfert',
+            'label' => 'Transaction',
             'icon' => 'bi bi-arrow-left-right',
-            'route' => '/client/transfert',
-            'active' => strpos($currentUri, 'client/transfert') === 0
+            'route' => '/transaction/form',
+            'active' => strpos($currentUri, 'transaction') === 0
         ],
         [
             'label' => 'Historique',

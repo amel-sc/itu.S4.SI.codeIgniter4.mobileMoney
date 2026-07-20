@@ -23,12 +23,12 @@ $routes->get('/logout', 'AuthController::logout');
 
 // routes accessibles aux utilisateurs connectés (après login)
 $routes->group('', ['filter' => 'auth'], function($routes) {
+    $routes->get('/transaction/form', 'TransactionController::form');
+    $routes->post('/transaction', 'TransactionController::transaction');
+
     // opérateur (id_role = 1)
     $routes->group('', ['filter' => 'role:1'], function($routes) {
         $routes->get('/home', 'HomeController::index');
-
-        $routes->get('/transaction/form', 'TransactionController::form');
-        $routes->post('/transaction', 'TransactionController::transaction');
 
         $routes->get('/prefix', 'PrefixConfigController::list');
         $routes->get('/prefix/insert-form', 'PrefixConfigController::insert_form');
@@ -53,15 +53,6 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->group('client', ['filter' => 'role:2'], function($routes) {
         $routes->get('', 'ClientController::dashboard');
         $routes->get('dashboard', 'ClientController::dashboard');
-
-        $routes->get('depot', 'ClientController::formDepot');
-        $routes->post('depot', 'ClientController::depot');
-
-        $routes->get('retrait', 'ClientController::formRetrait');
-        $routes->post('retrait', 'ClientController::retrait');
-
-        $routes->get('transfert', 'ClientController::formTransfert');
-        $routes->post('transfert', 'ClientController::transfert');
 
         $routes->get('historique', 'ClientController::historique');
     });

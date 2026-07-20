@@ -23,9 +23,7 @@
             <div class="card-body">
                 <div class="text-muted small mb-2">Accès rapide</div>
                 <div class="d-flex flex-wrap gap-2">
-                    <a class="btn btn-primary" href="<?= site_url('/client/depot') ?>">Dépôt</a>
-                    <a class="btn btn-outline-primary" href="<?= site_url('/client/retrait') ?>">Retrait</a>
-                    <a class="btn btn-outline-primary" href="<?= site_url('/client/transfert') ?>">Transfert</a>
+                    <a class="btn btn-primary" href="<?= site_url('/transaction/form') ?>">Nouvelle transaction</a>
                 </div>
             </div>
         </div>
@@ -36,7 +34,7 @@
     <div class="card-body">
         <h5 class="mb-3">Espace client</h5>
         <p class="text-muted mb-0">
-            Réalisez vos dépôts, retraits, transferts et consultez vos opérations sans inscription préalable.
+            Réalisez vos transactions et consultez vos opérations sans inscription préalable.
         </p>
     </div>
 </div>
