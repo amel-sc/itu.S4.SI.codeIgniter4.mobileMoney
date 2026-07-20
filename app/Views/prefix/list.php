@@ -17,6 +17,7 @@
                     <tr>
                         <th style="width: 80px;">ID</th>
                         <th>Valeur du préfixe</th>
+                        <th>Opérateur</th>
                         <th style="width: 200px;" class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -29,6 +30,10 @@
                             </td>
                             <td>
                                 <span class="fw-semibold"><?= esc($p['value']) ?></span>
+                            </td>
+                            <td>
+                                <span class="badge bg-info text-dark"><?= esc($p['operateur_nom'] ?? 'Sans opérateur') ?></span>
+                                <span class="ms-2 text-muted small"><?= esc($p['statut_operateur'] ?? '') ?></span>
                             </td>
                             <td class="text-center">
                                 <a href="<?= site_url('/prefix/edit-form/' . $p['id']) ?>" 
@@ -47,7 +52,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="3" class="text-center py-4">
+                            <td colspan="4" class="text-center py-4">
                                 <i class="bi bi-inbox fs-1 d-block text-muted mb-2"></i>
                                 <p class="text-muted mb-0">Aucun préfixe trouvé.</p>
                                 <a href="<?= site_url('/prefix/insert-form') ?>" class="btn btn-primary btn-sm mt-2">

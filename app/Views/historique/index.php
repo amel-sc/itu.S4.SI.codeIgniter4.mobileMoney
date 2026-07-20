@@ -16,7 +16,9 @@
                         <th>Type</th>
                         <th>Montant</th>
                         <th>Frais</th>
+                        <th>Commission</th>
                         <th>Date</th>
+                        <th>Envoyeur</th>
                         <th>Correspondant</th>
                     </tr>
                 </thead>
@@ -45,7 +47,17 @@
                                 <span class="text-muted"><?= number_format((float)$t['frais'], 2, ',', ' ') ?> Ar</span>
                             </td>
                             <td>
+                                <span class="text-muted"><?= number_format((float)($t['commission'] ?? 0), 2, ',', ' ') ?> Ar</span>
+                            </td>
+                            <td>
                                 <span class="text-muted"><?= esc($t['date_transaction']) ?></span>
+                            </td>
+                            <td>
+                                <?php if (!empty($t['numero_sender'])): ?>
+                                    <span class="badge bg-info"><?= esc($t['numero_sender']) ?></span>
+                                <?php else: ?>
+                                    <span class="text-muted fst-italic">-</span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <?php if ($t['id_type_operation'] == 3 && !empty($t['numero_receiver'])): ?>
@@ -60,7 +72,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center py-4">
+                            <td colspan="6" class="text-center py-4">
                                 <i class="bi bi-inbox fs-1 d-block text-muted mb-2"></i>
                                 <p class="text-muted mb-0">Aucune opération trouvée.</p>
                             </td>

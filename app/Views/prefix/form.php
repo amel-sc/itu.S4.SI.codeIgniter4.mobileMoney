@@ -25,6 +25,20 @@
                        required>
                 <div class="form-text">Entrez le préfixe du numéro de téléphone (ex: 037, 039, etc.)</div>
             </div>
+
+            <div class="col-md-6">
+                <label for="id_operateur" class="form-label">
+                    <i class="bi bi-building me-1"></i>Opérateur associé
+                </label>
+                <select name="id_operateur" id="id_operateur" class="form-select" required>
+                    <option value="">-- Sélectionnez un opérateur --</option>
+                    <?php foreach ($operateurs as $operateur): ?>
+                        <option value="<?= esc($operateur['id']) ?>" <?= (isset($prefix) && (int) $prefix['id_operateur'] === (int) $operateur['id']) ? 'selected' : '' ?>>
+                            <?= esc($operateur['nom']) ?> - <?= esc($operateur['statut_libelle'] ?? 'Sans statut') ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
             
             <div class="col-12">
                 <hr>

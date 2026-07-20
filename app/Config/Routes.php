@@ -30,12 +30,26 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->group('', ['filter' => 'role:1'], function($routes) {
         $routes->get('/home', 'HomeController::index');
 
+        $routes->get('/operateurs', 'OperateurController::list');
+        $routes->get('/operateurs/insert-form', 'OperateurController::insert_form');
+        $routes->post('/operateurs/insert', 'OperateurController::save');
+        $routes->get('/operateurs/edit-form/(:num)', 'OperateurController::edit_form/$1');
+        $routes->post('/operateurs/update/(:num)', 'OperateurController::update/$1');
+        $routes->get('/operateurs/delete/(:num)', 'OperateurController::delete/$1');
+
         $routes->get('/prefix', 'PrefixConfigController::list');
         $routes->get('/prefix/insert-form', 'PrefixConfigController::insert_form');
         $routes->post('/prefix/insert', 'PrefixConfigController::save');
         $routes->get('/prefix/edit-form/(:num)', 'PrefixConfigController::edit_form/$1');
         $routes->post('/prefix/update/(:num)', 'PrefixConfigController::update/$1');
         $routes->get('/prefix/delete/(:num)', 'PrefixConfigController::delete/$1');
+
+        $routes->get('/commission-config', 'CommissionConfigController::list');
+        $routes->get('/commission-config/insert-form', 'CommissionConfigController::insert_form');
+        $routes->post('/commission-config/insert', 'CommissionConfigController::save');
+        $routes->get('/commission-config/edit-form/(:num)', 'CommissionConfigController::edit_form/$1');
+        $routes->post('/commission-config/update/(:num)', 'CommissionConfigController::update/$1');
+        $routes->get('/commission-config/delete/(:num)', 'CommissionConfigController::delete/$1');
 
         $routes->get('/frais', 'FraisController::list');
         $routes->get('/frais/insert-form', 'FraisController::insert_form');

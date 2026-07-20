@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use App\Models\PrefixConfigModel;
 use App\Models\UtilisateurModel;
 
 class AuthController extends BaseController{    
@@ -21,6 +22,7 @@ class AuthController extends BaseController{
     // function to login
     public function login() {
         $utilisateurModel = new UtilisateurModel();
+        $prefixConfigModel = new PrefixConfigModel();
         // get user numero
         $numero = $this->request->getPost('numero');
 
@@ -29,6 +31,12 @@ class AuthController extends BaseController{
 
         // verify if user exist
         if ($user) {
+            $operatorInfo = $prefixConfigModel->findOperatorByNumero($numero);
+
+            if (!$operatorInfo || strtolower(trim((string) ($operatorInfo['statut_operateur'] ?? ''))) !== 'operateur') {
+                return redirect()->to('/login')->with('error', 'Ce numéro ne peut pas se connecter à cet opérateur.')->withInput();
+            }
+
             session()->set('user', $user);
             return ((int) ($user['id_role'] ?? 0) === 2)
                 ? redirect()->to('/client/dashboard')

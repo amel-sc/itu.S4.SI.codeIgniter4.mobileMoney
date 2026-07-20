@@ -39,6 +39,18 @@ if ($role === 2) {
             'active' => strpos($currentUri, 'prefix') === 0
         ],
         [
+            'label' => 'Opérateurs',
+            'icon' => 'bi bi-building',
+            'route' => '/operateurs',
+            'active' => strpos($currentUri, 'operateurs') === 0
+        ],
+        [
+            'label' => 'Commissions',
+            'icon' => 'bi bi-percent',
+            'route' => '/commission-config',
+            'active' => strpos($currentUri, 'commission-config') === 0
+        ],
+        [
             'label' => 'Gestion des Frais',
             'icon' => 'bi bi-cash-coin',
             'route' => '/frais',
