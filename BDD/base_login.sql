@@ -33,6 +33,7 @@ CREATE TABLE utilisateur (
     nom VARCHAR(255),
     numero VARCHAR(255) NOT NULL UNIQUE,
     id_role INTEGER NOT NULL,
+    solde REAL NOT NULL DEFAULT 0,
     FOREIGN KEY (id_role) REFERENCES role_utilisateur(id)
 );
 
