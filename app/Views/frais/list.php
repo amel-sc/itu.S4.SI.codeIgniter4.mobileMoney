@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>ID Operation Type</th>
+                <th>Type d'opération</th>
                 <th>Montant 1</th>
                 <th>Montant 2</th>
                 <th>Frais</th>
@@ -18,7 +18,7 @@
             <?php foreach ($frais as $f) : ?>
                 <tr>
                     <td><?= esc($f['id']) ?></td>
-                    <td><?= esc($f['id_operation_type']) ?></td>
+                    <td><?= esc($f['operation_type']) ?></td>
                     <td><?= esc($f['montant1']) ?></td>
                     <td><?= esc($f['montant2']) ?></td>
                     <td><?= esc($f['frais']) ?></td>
