@@ -6,7 +6,8 @@ DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS montant_frais;
 DROP TABLE IF EXISTS operation_type;
 
-PRAGMA foreign_keys = ON
+DROP TABLE IF EXISTS historique_transaction;
+
 
 -- table prefix_config
 CREATE TABLE prefix_config (
