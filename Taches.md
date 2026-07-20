@@ -5,7 +5,7 @@
 - Table utilisateur : id, nom, prenom, numero, role
 - Table operation_type : id, libelle. qui stocke les opérations valide (dépôt, retait, transfert)
 - Table montant_frais : id, id_operation_type, montant1, montant2, montant_frais. qui stocke les frais par type d'operation.
-- Table historique_transaction : id, type_operation, montant, frais, num1, num2 (nullable) 
+- Table historique_transaction : id, type_operation, montant, frais, num1, num2 (nullable), date
 
 ## fonctionnalité
 ### Côté opérateur
