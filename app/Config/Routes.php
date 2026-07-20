@@ -11,6 +11,10 @@ $routes->get('/', function() {
 // home route
 $routes->get('/home', 'HomeController::index');
 
+// auth controller
+$routes->get('/login', 'AuthController::form');
+$routes->post('/login', 'AuthController::login');
+
 // frais routes
 $routes->get('/frais', 'FraisController::list');
 $routes->get('/frais/insert-form', 'FraisController::insert_form');
