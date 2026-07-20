@@ -172,6 +172,9 @@ class TransactionController extends BaseController{
                 }
 
                 $totalDebit = (float) $montant + (float) $frais['frais'] + $totalCommission;
+                if ($includeWithdrawalFee) {
+                    $totalDebit += (float) $totalWithdrawalFee;
+                }
 
                 // RÈGLE 2 : Refuser un transfert sans solde suffisant
                 if ($sender['solde'] < $totalDebit) {
@@ -194,7 +197,7 @@ class TransactionController extends BaseController{
                         'numero_sender' => $sender['numero'],
                         'numero_receiver' => $operation['receiver_numero'],
                         'montant' => $operation['amount'],
-                        'frais' => $frais['frais'],
+                        'frais' => $includeWithdrawalFee ? $operation['withdrawal_fee'] : $frais['frais'],
                         'commission' => $operation['commission']
                     ]);
                 }
