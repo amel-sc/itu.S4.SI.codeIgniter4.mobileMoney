@@ -15,3 +15,4 @@ $routes->get('/home', 'HomeController::index');
 
 // auth controller
 $routes->get('/login', 'AuthController::form');
+$routes->post('/login', 'AuthController::login');
