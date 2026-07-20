@@ -29,7 +29,7 @@ CREATE TABLE utilisateur (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     prenom VARCHAR(255),
     nom VARCHAR(255),
-    numero VARCHAR(255),
+    numero VARCHAR(255) NOT NULL UNIQUE,
     id_role INTEGER NOT NULL,
     FOREIGN KEY (id_role) REFERENCES role_utilisateur(id)
 );
