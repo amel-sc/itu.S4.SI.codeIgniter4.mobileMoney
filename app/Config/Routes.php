@@ -16,7 +16,11 @@ $routes->get('/login', 'AuthController::form');
 $routes->post('/login', 'AuthController::login');
 
 // transaction routes
-$routes->get('/transaction/form', 'TransactionController::form');
+// routes accessible aux utilisateurs connecter (après login)
+$routes->group('', ['filter' => 'auth'], function($routes) {
+    $routes->get('/transaction/form', 'TransactionController::form');
+    $routes->post('/transaction', 'TransactionController::transaction');
+});
 
 // frais routes
 $routes->get('/frais', 'FraisController::list');
