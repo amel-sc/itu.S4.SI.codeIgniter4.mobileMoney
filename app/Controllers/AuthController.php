@@ -6,7 +6,9 @@ class AuthController extends BaseController{
 	// function to get form to login
     public function form()    {        
         return view('auth/login', [
-            'title' => 'Login'
+            'title' => 'Connexion',
+            'hideSidebar' => true,
+            'hideNavbar' => true
         ]);    
     }
     // function to login

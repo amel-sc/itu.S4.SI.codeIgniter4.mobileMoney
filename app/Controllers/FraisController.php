@@ -57,7 +57,6 @@ class FraisController extends BaseController {
             'montant2' => $this->request->getPost('montant2'),
             'frais' => $this->request->getPost('frais')
         ];
-        $montantFraisModel->insert($data);
         if (!$montantFraisModel->insert($data)) {
             return redirect()->back()->withInput()->with('errors', $montantFraisModel->errors());
         }
@@ -85,7 +84,6 @@ class FraisController extends BaseController {
             'montant2' => $this->request->getPost('montant2'),
             'frais' => $this->request->getPost('frais')
         ];
-        $montantFraisModel->update($id, $data);
         if (!$montantFraisModel->update($id, $data)) {
             return redirect()->back()->withInput()->with('errors', $montantFraisModel->errors());
         }

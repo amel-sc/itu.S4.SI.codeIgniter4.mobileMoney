@@ -1,4 +1,8 @@
-PRAGMA foreign_keys = ON;
+PRAGMA foreign_keys = OFF;
+
+DROP TABLE IF EXISTS prefix_config;
+DROP TABLE IF EXISTS role_utilisateur;
+DROP TABLE IF EXISTS utilisateur;
 
 -- table prefix_config
 CREATE TABLE prefix_config (
@@ -8,10 +12,8 @@ CREATE TABLE prefix_config (
 
 INSERT INTO prefix_config (value)
 VALUES 
-('038'),
-('037'),
-('033'),
-('034');
+('067'),
+('069');
 
 -- table role_utilisateur
 CREATE TABLE role_utilisateur (
@@ -37,5 +39,5 @@ CREATE TABLE utilisateur (
 
 INSERT INTO utilisateur (prenom, nom, numero, id_role) 
 VALUES
-('admin', 'admin', '0389409519', 1),
-('Jane', 'Doe', '0385425624', 2);
+('admin', 'admin', '0670000000', 1),
+('Jane', 'Doe', '0671234567', 2);
