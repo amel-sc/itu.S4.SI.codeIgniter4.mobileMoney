@@ -6,6 +6,8 @@ class AuthController extends BaseController{
 	public function form()    {        
 		$model = new UtilisateurModel();
 
-        return view('auth/login');    
+        return view('auth/login', [
+            'title' => 'Login'
+        ]);    
     }
 }

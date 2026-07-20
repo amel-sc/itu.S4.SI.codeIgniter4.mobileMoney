@@ -1,0 +1,16 @@
+CRITICAL - 2026-07-20 06:32:31 --> ErrorException: Undefined variable $title
+[Method: GET, Route: login]
+in APPPATH/Views/layout.php on line 8.
+ 1 APPPATH/Views/layout.php(8): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/itu/github_project/itu.S4.SI.codeIgniter4.mobileMoney/app/Views/layout.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():237}()
+ 4 SYSTEMPATH/View/View.php(256): CodeIgniter\View\View->render()
+ 5 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 6 APPPATH/Controllers/AuthController.php(9): view()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\AuthController->form()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/itu/github_project/itu.S4.SI.codeIgniter4.mobileMoney/public/index.php')
