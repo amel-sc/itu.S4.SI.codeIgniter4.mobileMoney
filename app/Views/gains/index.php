@@ -25,6 +25,46 @@
     </div>
 </div>
 
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="bi bi-diagram-3 me-2" style="color: #00BCD4;"></i>Montants envoyés par opérateur
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-container">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Opérateur</th>
+                        <th>Statut</th>
+                        <th class="text-end">Montant envoyé</th>
+                        <th class="text-end">Commission</th>
+                        <th class="text-center">Transactions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($detailsOperateurs)): ?>
+                        <?php foreach ($detailsOperateurs as $operateur): ?>
+                            <tr>
+                                <td class="fw-semibold"><?= esc($operateur['nom']) ?></td>
+                                <td><span class="badge bg-secondary"><?= esc($operateur['statut']) ?></span></td>
+                                <td class="text-end"><?= number_format((float) $operateur['montant_total'], 2, ',', ' ') ?> Ar</td>
+                                <td class="text-end"><span class="badge bg-warning text-dark"><?= number_format((float) $operateur['commission_total'], 2, ',', ' ') ?> Ar</span></td>
+                                <td class="text-center"><span class="badge bg-info text-dark"><?= (int) $operateur['transactions'] ?></span></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">Aucun transfert opérateur trouvé.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-header">
         <h5 class="mb-0">
@@ -55,6 +95,14 @@
                         </td>
                         <td>
                             <span class="badge bg-warning"><?= number_format($totalTransfert, 2, ',', ' ') ?> Ar</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="fw-semibold">Commission opérateur</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-dark"><?= number_format($totalCommission, 2, ',', ' ') ?> Ar</span>
                         </td>
                     </tr>
                     <tr class="table-active">

@@ -35,15 +35,27 @@
                 </select>
             </div>
             
-            <div class="col-md-6" id="receiverField" style="display: none;">
+            <div class="col-12" id="receiverField" style="display: none;">
                 <label for="numero_receiver" class="form-label">
-                    <i class="bi bi-person me-1"></i>Numéro du destinataire
+                    <i class="bi bi-person me-1"></i>Numéro(s) du destinataire
                 </label>
-                <input type="text" 
-                       name="numero_receiver" 
-                       id="numero_receiver" 
-                       class="form-control" 
-                       placeholder="034 XX XXX XX">
+                <div id="receiverInputs" class="row g-2">
+                    <div class="col-md-6 receiver-item">
+                        <input type="text"
+                               name="numero_receiver[]"
+                               class="form-control"
+                               placeholder="034 XX XXX XX">
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap gap-3 mt-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="addReceiverBtn">
+                        <i class="bi bi-plus-lg me-1"></i>Ajouter un numéro
+                    </button>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="include_withdrawal_fee" id="include_withdrawal_fee" value="1">
+                        <label class="form-check-label" for="include_withdrawal_fee">Ajouter aussi les frais de retrait au destinataire</label>
+                    </div>
+                </div>
             </div>
             
             <div class="col-md-6">
@@ -85,19 +97,39 @@
 document.addEventListener('DOMContentLoaded', function() {
     const typeOperation = document.getElementById('type_operation');
     const receiverField = document.getElementById('receiverField');
-    const receiverInput = document.getElementById('numero_receiver');
+    const receiverInputs = document.getElementById('receiverInputs');
+    const addReceiverBtn = document.getElementById('addReceiverBtn');
     
     function toggleReceiverField() {
         // type_operation value 3 = transfert
         if (typeOperation.value === '3') {
             receiverField.style.display = 'block';
-            receiverInput.required = true;
         } else {
             receiverField.style.display = 'none';
-            receiverInput.required = false;
-            receiverInput.value = '';
+            receiverInputs.querySelectorAll('input').forEach(function(input) {
+                input.value = '';
+            });
         }
     }
+
+    addReceiverBtn.addEventListener('click', function() {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'col-md-6 receiver-item';
+        wrapper.innerHTML = `
+            <div class="input-group">
+                <input type="text" name="numero_receiver[]" class="form-control" placeholder="034 XX XXX XX">
+                <button type="button" class="btn btn-outline-danger remove-receiver-btn"><i class="bi bi-trash"></i></button>
+            </div>
+        `;
+        receiverInputs.appendChild(wrapper);
+    });
+
+    receiverInputs.addEventListener('click', function(event) {
+        const button = event.target.closest('.remove-receiver-btn');
+        if (button) {
+            button.closest('.receiver-item').remove();
+        }
+    });
     
     typeOperation.addEventListener('change', toggleReceiverField);
     toggleReceiverField();

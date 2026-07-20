@@ -14,6 +14,7 @@
                         <th>Type</th>
                         <th>Montant</th>
                         <th>Frais</th>
+                        <th>Commission</th>
                         <th>Date</th>
                         <th>Correspondant</th>
                     </tr>
@@ -31,6 +32,7 @@
                             </td>
                             <td><?= number_format((float) $t['montant'], 2, ',', ' ') ?> Ar</td>
                             <td><?= number_format((float) $t['frais'], 2, ',', ' ') ?> Ar</td>
+                            <td><?= number_format((float) ($t['commission'] ?? 0), 2, ',', ' ') ?> Ar</td>
                             <td><?= esc($t['date_transaction']) ?></td>
                             <td>
                                 <?php if ($t['id_type_operation'] == 3 && !empty($t['numero_receiver'])): ?>
@@ -43,7 +45,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">Aucune opération trouvée.</td>
+                            <td colspan="6" class="text-center py-4 text-muted">Aucune opération trouvée.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
