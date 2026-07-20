@@ -2,9 +2,7 @@
 
 use CodeIgniter\Router\RouteCollection;
 
-/**
- * @var RouteCollection $routes
- */
+
 // main route
 $routes->get('/', function() {
     return redirect()->to('/home');
@@ -12,3 +10,6 @@ $routes->get('/', function() {
 
 // home route
 $routes->get('/home', 'HomeController::index');
+
+// frais routes
+$routes->get('/frais', 'FraisController::list');
