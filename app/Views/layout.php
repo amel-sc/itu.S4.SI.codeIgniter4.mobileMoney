@@ -49,11 +49,15 @@
 
     <!-- MAIN CONTENT -->
     <main class="main-content fade-in">
+        <?php
+        $currentUser = session('user') ?? [];
+        $homeRoute = ((int) ($currentUser['id_role'] ?? 0) === 2) ? '/client/dashboard' : '/home';
+        ?>
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="<?= site_url('/home') ?>">
+                    <a href="<?= site_url($homeRoute) ?>">
                         <i class="bi bi-house-door-fill me-1"></i>Accueil
                     </a>
                 </li>

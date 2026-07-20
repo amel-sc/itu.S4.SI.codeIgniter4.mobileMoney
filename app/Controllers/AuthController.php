@@ -5,6 +5,13 @@ use App\Models\UtilisateurModel;
 class AuthController extends BaseController{    
 	// function to get form to login
     public function form()    {        
+        $user = session()->get('user');
+        if ($user) {
+            return ((int) ($user['id_role'] ?? 0) === 2)
+                ? redirect()->to('/client/dashboard')
+                : redirect()->to('/home');
+        }
+
         return view('auth/login', [
             'title' => 'Connexion',
             'hideSidebar' => true,
@@ -23,11 +30,20 @@ class AuthController extends BaseController{
         // verify if user exist
         if ($user) {
             session()->set('user', $user);
-            return redirect()->to('/home');
+            return ((int) ($user['id_role'] ?? 0) === 2)
+                ? redirect()->to('/client/dashboard')
+                : redirect()->to('/home');
         }
 
         else {
             return redirect()->to('/login')->with('error', 'Utilisateur introuvable')->withInput();
         }
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+
+        return redirect()->to('/login')->with('success', 'Déconnexion effectuée avec succès.');
     }
 }

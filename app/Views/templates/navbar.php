@@ -1,6 +1,10 @@
+<?php
+$currentUser = session('user') ?? [];
+$homeRoute = ((int) ($currentUser['id_role'] ?? 0) === 2) ? '/client/dashboard' : '/home';
+?>
 <nav class="navbar navbar-expand-lg navbar-dark main-navbar shadow-sm">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="<?= site_url('/home') ?>">
+        <a class="navbar-brand d-flex align-items-center" href="<?= site_url($homeRoute) ?>">
             <i class="bi bi-phone fs-3 me-2" style="color: #00BCD4;"></i>
             <div>
                 <span class="fw-bold fs-5">Mobile Money</span>
@@ -25,7 +29,12 @@
                         <li><h6 class="dropdown-header">Mon compte</h6></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item text-danger" href="<?= site_url('/login') ?>">
+                            <span class="dropdown-item-text text-muted small">
+                                <?= ((int) (session('user')['id_role'] ?? 0) === 2) ? 'Client' : 'Opérateur' ?>
+                            </span>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="<?= site_url('/logout') ?>">
                                 <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
                             </a>
                         </li>
