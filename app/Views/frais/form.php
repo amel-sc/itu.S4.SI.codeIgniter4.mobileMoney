@@ -1,42 +1,100 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
-<h1><?= esc($title) ?></h1>
-
-<?php if (session()->getFlashdata('success')) { ?>
-    <div class="alert alert-success">
-        <?= session()->getFlashdata('success') ?>
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="bi bi-cash-coin me-2" style="color: #00BCD4;"></i><?= esc($title) ?>
+        </h5>
     </div>
-<?php } ?>
-
-<form action="<?= isset($frais) ? site_url('/frais/update/' . $frais['id']) : site_url('/frais/insert') ?>" method="post">
-    <?= csrf_field() ?>
-    <div>
-        <label for="id_operation_type">Type d'opération :</label>
-        <select name="id_operation_type" id="id_operation_type" required>
-            <?php foreach ($operationTypes as $type) { ?>
-                <?php if (isset($frais) && $frais['id_operation_type'] == $type['id']) { ?>
-                    <option value="<?= esc($type['id']) ?>" selected><?= esc($type['libelle']) ?></option>
-                <?php } else { ?>
-                    <option value="<?= esc($type['id']) ?>"><?= esc($type['libelle']) ?></option>
-                <?php } ?>
-            <?php } ?>
-        </select>
+    <div class="card-body">
+        <form action="<?= isset($frais) ? site_url('/frais/update/' . $frais['id']) : site_url('/frais/insert') ?>" 
+              method="post" class="row g-3">
+            <?= csrf_field() ?>
+            
+            <div class="col-md-6">
+                <label for="id_operation_type" class="form-label">
+                    <i class="bi bi-arrow-left-right me-1"></i>Type d'opération
+                </label>
+                <select name="id_operation_type" id="id_operation_type" class="form-select" required>
+                    <option value="">-- Sélectionnez un type --</option>
+                    <?php foreach ($operationTypes as $type): ?>
+                        <option value="<?= esc($type['id']) ?>" 
+                            <?= (isset($frais) && $frais['id_operation_type'] == $type['id']) ? 'selected' : '' ?>>
+                            <?= esc($type['libelle']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="montant1" class="form-label">
+                    <i class="bi bi-currency-exchange me-1"></i>Montant minimum
+                </label>
+                <div class="input-group">
+                    <input type="number" 
+                           name="montant1" 
+                           id="montant1" 
+                           class="form-control" 
+                           step="0.01" 
+                           min="0"
+                           value="<?= isset($frais) ? esc($frais['montant1']) : '' ?>" 
+                           placeholder="0.00" 
+                           required>
+                    <span class="input-group-text">Ar</span>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="montant2" class="form-label">
+                    <i class="bi bi-currency-exchange me-1"></i>Montant maximum
+                </label>
+                <div class="input-group">
+                    <input type="number" 
+                           name="montant2" 
+                           id="montant2" 
+                           class="form-control" 
+                           step="0.01" 
+                           min="0"
+                           value="<?= isset($frais) ? esc($frais['montant2']) : '' ?>" 
+                           placeholder="0.00" 
+                           required>
+                    <span class="input-group-text">Ar</span>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="frais" class="form-label">
+                    <i class="bi bi-percent me-1"></i>Frais appliqués
+                </label>
+                <div class="input-group">
+                    <input type="number" 
+                           name="frais" 
+                           id="frais" 
+                           class="form-control" 
+                           step="0.01" 
+                           min="0"
+                           value="<?= isset($frais) ? esc($frais['frais']) : '' ?>" 
+                           placeholder="0.00" 
+                           required>
+                    <span class="input-group-text">Ar</span>
+                </div>
+            </div>
+            
+            <div class="col-12">
+                <hr>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-lg me-1"></i>
+                        <?= isset($frais) ? 'Modifier' : 'Ajouter' ?>
+                    </button>
+                    <a href="<?= site_url('/frais') ?>" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-lg me-1"></i>Annuler
+                    </a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="montant1">Montant 1 :</label>
-        <input type="number" name="montant1" id="montant1" step="0.01" value="<?= isset($frais) ? esc($frais['montant1']) : '' ?>" required>
-    </div>
-    <div>
-        <label for="montant2">Montant 2 :</label>
-        <input type="number" name="montant2" id="montant2" step="0.01" value="<?= isset($frais) ? esc($frais['montant2']) : '' ?>" required>
-    </div>
-    <div>
-        <label for="frais">Frais :</label>
-        <input type="number" name="frais" id="frais" step="0.01" value="<?= isset($frais) ? esc($frais['frais']) : '' ?>" required>
-    </div>
-    <button type="submit">Ajouter</button>
-</form>
-
+</div>
 
 <?= $this->endSection() ?>
