@@ -56,7 +56,13 @@
                        placeholder="Entrez votre numéro"
                        value="<?= old('numero') ?>" 
                        required>
-                <div class="form-text">Utilisez votre numéro Mobile Money pour vous connecter.</div>
+                <div class="form-text">Numero de test :
+                    <ul>
+                        <li>Admin : 0670000000</li>
+                        <li>Client : 0671234567</li>
+                    </ul>
+                </div>
+                
             </div>
             
             <button type="submit" class="btn btn-primary w-100 btn-lg">

@@ -21,9 +21,9 @@
                        id="value" 
                        class="form-control" 
                        value="<?= isset($prefix) ? esc($prefix['value']) : '' ?>" 
-                       placeholder="Ex: +261" 
+                       placeholder="Ex: 037" 
                        required>
-                <div class="form-text">Entrez le préfixe du numéro de téléphone (ex: +261, 034, etc.)</div>
+                <div class="form-text">Entrez le préfixe du numéro de téléphone (ex: 037, 039, etc.)</div>
             </div>
             
             <div class="col-12">

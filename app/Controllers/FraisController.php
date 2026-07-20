@@ -60,7 +60,7 @@ class FraisController extends BaseController {
         if (!$montantFraisModel->insert($data)) {
             return redirect()->back()->withInput()->with('errors', $montantFraisModel->errors());
         }
-        return redirect()->to('/frais')->with('success', 'Montant de frais ajouté avec succès.');
+        return redirect()->to('/frais/insert-form')->with('success', 'Montant de frais ajouté avec succès.');
     }
 
     public function edit_form($id) {
@@ -87,7 +87,7 @@ class FraisController extends BaseController {
         if (!$montantFraisModel->update($id, $data)) {
             return redirect()->back()->withInput()->with('errors', $montantFraisModel->errors());
         }
-        return redirect()->to('/frais')->with('success', 'Montant de frais modifié avec succès.');
+        return redirect()->to('/frais/edit-form/' . $id)->with('success', 'Montant de frais modifié avec succès.');
     }
 
     public function delete($id) {
