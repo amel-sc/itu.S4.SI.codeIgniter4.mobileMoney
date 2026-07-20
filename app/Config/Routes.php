@@ -15,6 +15,14 @@ $routes->get('/home', 'HomeController::index');
 $routes->get('/login', 'AuthController::form');
 $routes->post('/login', 'AuthController::login');
 
+// prefix routes
+$routes->get('/prefix', 'PrefixConfigController::list');
+$routes->get('/prefix/insert-form', 'PrefixConfigController::insert_form');
+$routes->post('/prefix/insert', 'PrefixConfigController::save');
+$routes->get('/prefix/edit-form/(:num)', 'PrefixConfigController::edit_form/$1');
+$routes->post('/prefix/update/(:num)', 'PrefixConfigController::update/$1');
+$routes->get('/prefix/delete/(:num)', 'PrefixConfigController::delete/$1');
+
 // frais routes
 $routes->get('/frais', 'FraisController::list');
 $routes->get('/frais/insert-form', 'FraisController::insert_form');

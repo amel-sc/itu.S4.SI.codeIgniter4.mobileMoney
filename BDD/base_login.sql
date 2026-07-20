@@ -8,9 +8,9 @@ CREATE TABLE prefix_config (
 
 INSERT INTO prefix_config (value)
 VALUES 
-('038'),
+('067'),
+('069'),
 ('037'),
-('033'),
 ('034');
 
 -- table role_utilisateur
