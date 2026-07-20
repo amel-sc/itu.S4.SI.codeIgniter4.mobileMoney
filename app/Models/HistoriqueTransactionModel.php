@@ -6,11 +6,11 @@ use CodeIgniter\Model;
 class HistoriqueTransactionModel extends Model {    
 	protected $table = 'historique_transaction';    
 	protected $allowedFields = [
-        'type_operation', 
+        'id_type_operation', 
         'montant',
         'frais',
-        'num_sender',
-        'num_receiver',
-        'date'
+        'numero_sender',
+        'numero_receiver',
+        'date_transaction'
     ];
 }

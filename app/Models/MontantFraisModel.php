@@ -15,7 +15,7 @@ class MontantFraisModel extends Model
 
     // function to get montant_frais by operation and montant
     public function findByOperationAndMontant($operation, $montant) {
-        return $this->where('id_type_operation', $operation)
+        return $this->where('id_operation_type', $operation)
                     ->where('montant1 <=', $montant)
                     ->where('montant2 >=', $montant)
                     ->first();

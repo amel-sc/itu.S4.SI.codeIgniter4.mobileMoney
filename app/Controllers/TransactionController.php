@@ -96,7 +96,7 @@ class TransactionController extends BaseController{
             // insertion historique
             $data = [
                 'id_type_operation' => $type_operation,
-                'numero_sender' => $numero_sender,
+                'numero_sender' => $sender['numero'],
                 'numero_receiver' => ($type_operation == 3) ? $numero_receiver : null,
                 'montant' => $montant,
                 'frais' => $frais['frais']
