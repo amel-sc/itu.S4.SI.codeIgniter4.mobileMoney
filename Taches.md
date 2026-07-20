@@ -71,3 +71,32 @@
 
 ## page
 - form.php : formulaire pour faire une transaction : select option operation_type, input de numero sender, input de numero receiver, input de montant
+
+## SITUATION (Lorick - 3892)
+### base
+- table historique
+
+### views 
+- creation des pages : historique/index
+
+### controllers
+- creation de historiqueController
+
+### routes 
+- ajout des routes :
+    - /historique
+
+## SITUATION (Lorick - 3892)
+### base
+- table historique
+
+### views 
+- creation des pages : gains/index et clients/index
+
+### controllers
+- creation de clientsController et GainsController
+
+### routes 
+- ajout des routes :
+    - /gain
+    - /client
