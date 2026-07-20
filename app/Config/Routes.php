@@ -15,6 +15,13 @@ $routes->get('/home', 'HomeController::index');
 $routes->get('/login', 'AuthController::form');
 $routes->post('/login', 'AuthController::login');
 
+// transaction routes
+// routes accessible aux utilisateurs connecter (après login)
+$routes->group('', ['filter' => 'auth'], function($routes) {
+    $routes->get('/transaction/form', 'TransactionController::form');
+    $routes->post('/transaction', 'TransactionController::transaction');
+});
+
 // prefix routes
 $routes->get('/prefix', 'PrefixConfigController::list');
 $routes->get('/prefix/insert-form', 'PrefixConfigController::insert_form');

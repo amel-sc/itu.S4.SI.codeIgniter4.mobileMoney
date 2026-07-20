@@ -8,7 +8,8 @@ class UtilisateurModel extends Model {
         'prenom', 
         'nom',
         'numero',
-        'id_role'
+        'id_role',
+        'solde'
     ];
 
     // function to verify is user exist
@@ -27,4 +28,11 @@ class UtilisateurModel extends Model {
     public function findByNumero($numero) {
         return $this->where('numero', $numero)->first();
     }
+
+    // function to update solde for user
+    function updateSoldeByUser($id_user, $solde) {
+    return $this->where('id', $id_user)
+                ->set('solde', $solde)
+                ->update();
+    }   
 }
