@@ -8,3 +8,17 @@
 
 # models
 - creation du model montant_frais
+- creation du model operation type
+
+# controllers
+- creation de fraisController :
+    - creation des fonctions :
+        - list (get liste des montant frais)
+        - addType (ajouter libelle des types sur la table list montant-frais)
+
+# routes 
+- ajout des routes :
+    - /frais
+    - /frais/insert
+    - /frais/update
+    - /frais/delete

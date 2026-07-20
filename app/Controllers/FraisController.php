@@ -37,4 +37,65 @@ class FraisController extends BaseController {
         }
         return $fraisWithType;
     }
+
+
+    public function insert_form() {
+        $operationTypeModel = new OperationTypeModel();
+        $operationTypes = $operationTypeModel->findAll();
+
+        return view('frais/form', [
+            'title' => 'Ajouter un montant de frais',
+            'operationTypes' => $operationTypes
+        ]);
+    }
+
+    public function save() {
+        $montantFraisModel = new MontantFraisModel();
+        $data = [
+            'id_operation_type' => $this->request->getPost('id_operation_type'),
+            'montant1' => $this->request->getPost('montant1'),
+            'montant2' => $this->request->getPost('montant2'),
+            'frais' => $this->request->getPost('frais')
+        ];
+        $montantFraisModel->insert($data);
+        if (!$montantFraisModel->insert($data)) {
+            return redirect()->back()->withInput()->with('errors', $montantFraisModel->errors());
+        }
+        return redirect()->to('/frais/insert-form')->with('success', 'Montant de frais ajouté avec succès.');
+    }
+
+    public function edit_form($id) {
+        $montantFraisModel = new MontantFraisModel();
+        $operationTypeModel = new OperationTypeModel();
+        $frais = $montantFraisModel->find($id);
+        $operationTypes = $operationTypeModel->findAll();
+
+        return view('frais/form', [
+            'title' => 'Modifier un montant de frais',
+            'frais' => $frais,
+            'operationTypes' => $operationTypes
+        ]);
+    }
+
+    public function update($id) {
+        $montantFraisModel = new MontantFraisModel();
+        $data = [
+            'id_operation_type' => $this->request->getPost('id_operation_type'),
+            'montant1' => $this->request->getPost('montant1'),
+            'montant2' => $this->request->getPost('montant2'),
+            'frais' => $this->request->getPost('frais')
+        ];
+        $montantFraisModel->update($id, $data);
+        if (!$montantFraisModel->update($id, $data)) {
+            return redirect()->back()->withInput()->with('errors', $montantFraisModel->errors());
+        }
+        return redirect()->to('/frais/edit-form/' . $id)->with('success', 'Montant de frais modifié avec succès.');
+    }
+
+    public function delete($id) {
+        $montantFraisModel = new MontantFraisModel();
+        $montantFraisModel->delete($id);
+        return redirect()->to('/frais');
+    }
+
 }

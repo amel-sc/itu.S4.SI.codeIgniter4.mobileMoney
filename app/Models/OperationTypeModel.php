@@ -9,7 +9,7 @@ class OperationTypeModel extends Model
     protected $table         = 'operation_type';
     protected $primaryKey    = 'id';
     protected $returnType    = 'array';
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
 
     protected $allowedFields = ['libelle'];
 }
