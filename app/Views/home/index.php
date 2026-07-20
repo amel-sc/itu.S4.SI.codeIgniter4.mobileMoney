@@ -63,6 +63,51 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-6 mt-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="bi bi-arrow-left-right me-2" style="color: #00BCD4;"></i>Transaction</h5>
+                <a href="<?= site_url('/transaction/form') ?>" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-0">
+                    Effectuez des opérations de dépôt, retrait ou transfert d'argent.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mt-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="bi bi-graph-up-arrow me-2" style="color: #00BCD4;"></i>Situation des gains</h5>
+                <a href="<?= site_url('/gains') ?>" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-0">
+                    Consultez le total des frais de retrait, transfert et le total général des gains.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mt-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="bi bi-people me-2" style="color: #00BCD4;"></i>Comptes clients</h5>
+                <a href="<?= site_url('/clients') ?>" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-0">
+                    Liste des clients avec leur numéro et solde actuel.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?= $this->endSection() ?>

@@ -37,3 +37,12 @@ $routes->post('/frais/insert', 'FraisController::save');
 $routes->get('/frais/edit-form/(:num)', 'FraisController::edit_form/$1');
 $routes->post('/frais/update/(:num)', 'FraisController::update/$1');
 $routes->get('/frais/delete/(:num)', 'FraisController::delete/$1');
+
+// gains routes
+$routes->get('/gains', 'GainsController::index');
+
+// clients routes
+$routes->get('/clients', 'ClientsController::index');
+
+// historique routes
+$routes->get('/historique', 'HistoriqueController::index');

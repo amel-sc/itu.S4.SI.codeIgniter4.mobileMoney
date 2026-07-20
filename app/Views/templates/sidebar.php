@@ -18,6 +18,30 @@ $menuItems = [
         'icon' => 'bi bi-cash-coin',
         'route' => '/frais',
         'active' => strpos($currentUri, 'frais') === 0
+    ],
+    [
+        'label' => 'Transaction',
+        'icon' => 'bi bi-arrow-left-right',
+        'route' => '/transaction/form',
+        'active' => strpos($currentUri, 'transaction') === 0
+    ],
+    [
+        'label' => 'Situation des gains',
+        'icon' => 'bi bi-graph-up-arrow',
+        'route' => '/gains',
+        'active' => strpos($currentUri, 'gains') === 0
+    ],
+    [
+        'label' => 'Comptes clients',
+        'icon' => 'bi bi-people',
+        'route' => '/clients',
+        'active' => strpos($currentUri, 'clients') === 0
+    ],
+    [
+        'label' => 'Historique',
+        'icon' => 'bi bi-clock-history',
+        'route' => '/historique',
+        'active' => strpos($currentUri, 'historique') === 0
     ]
 ];
 ?>
