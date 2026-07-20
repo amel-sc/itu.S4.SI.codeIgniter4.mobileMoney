@@ -1,7 +1,8 @@
 # transaction
 ## base
 - Table operation_type : id, libelle. qui stocke les opérations valide (dépôt, retait, transfert)
-- Table historique_transaction : id, type_operation, montant, frais, num_sender, num_receiver (nullable), date
+- Table historique_transaction : id, type_operation, montant, frais, num_sender, num_receiver (nullable), date_transaction
+- Ajouter une colonne solde dans ma table utilisateur
 
 ## fonction
 - makeTransaction($data) : fonction pour faire une transaction

@@ -12,4 +12,12 @@ class MontantFraisModel extends Model
     protected $useTimestamps = false;
 
     protected $allowedFields = ['id_operation_type', 'montant1', 'montant2', 'frais'];
+
+    // function to get montant_frais by operation and montant
+    public function findByOperationAndMontant($operation, $montant) {
+        return $this->where('id_type_operation', $operation)
+                    ->where('montant1 <=', $montant)
+                    ->where('montant2 >=', $montant)
+                    ->first();
+    }
 }

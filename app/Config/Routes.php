@@ -15,6 +15,9 @@ $routes->get('/home', 'HomeController::index');
 $routes->get('/login', 'AuthController::form');
 $routes->post('/login', 'AuthController::login');
 
+// transaction routes
+$routes->get('/transaction/form', 'TransactionController::form');
+
 // frais routes
 $routes->get('/frais', 'FraisController::list');
 $routes->get('/frais/insert-form', 'FraisController::insert_form');
