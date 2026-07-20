@@ -25,7 +25,7 @@ class AuthController extends BaseController{
         }
 
         else {
-            return redirect()->to('/login')->with('error', 'Utilisateur introuvable');
+            return redirect()->to('/login')->with('error', 'Utilisateur introuvable')->withInput();
         }
     }
 }
