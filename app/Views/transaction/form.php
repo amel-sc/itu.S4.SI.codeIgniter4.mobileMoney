@@ -13,8 +13,6 @@
             <option value="<?= $type_operation['id'] ?>"><?= $type_operation['libelle'] ?></option>
         <?php } ?>
     </select>
-    <label for="">Numero sender</label>
-    <input type="text" name="numero_sender">
     <label for="">Numero receiver</label>
     <input type="text" name="numero_receiver">
     <label for="">Montant</label>

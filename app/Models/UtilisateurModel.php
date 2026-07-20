@@ -27,4 +27,11 @@ class UtilisateurModel extends Model {
     public function findByNumero($numero) {
         return $this->where('numero', $numero)->first();
     }
+
+    // function to update solde for user
+    function updateSoldeByUser($id_user, $solde) {
+    return $this->where('id_user', $id_user)
+                ->set('solde', $solde)
+                ->update();
+    }   
 }
