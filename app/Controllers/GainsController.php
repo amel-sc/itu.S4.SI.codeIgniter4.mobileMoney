@@ -68,6 +68,7 @@ class GainsController extends BaseController
         }
 
         $totalGeneral = $totalRetrait + $totalTransfert + $totalCommission;
+        $totalGeneralNoCommission = $totalRetrait + $totalTransfert;
 
         return view('gains/index', [
             'title' => 'Situation des gains',
@@ -75,6 +76,7 @@ class GainsController extends BaseController
             'totalTransfert' => $totalTransfert,
             'totalCommission' => $totalCommission,
             'totalGeneral' => $totalGeneral,
+            'totalGeneralNoCommission' => $totalGeneralNoCommission,
             'detailsOperateurs' => array_values($detailsOperateurs)
         ]);
     }
