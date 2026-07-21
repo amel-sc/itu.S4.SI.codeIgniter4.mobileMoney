@@ -104,6 +104,7 @@ class TransactionController extends BaseController{
                 $receiverCount = count($numeroReceivers);
                 $shareAmount = round(((float) $montant) / $receiverCount, 2);
                 $distributedAmount = 0;
+                $totalTransferFee = 0;
 
                 foreach ($numeroReceivers as $index => $numeroReceiver) {
                     if ($numeroReceiver === $sender['numero']) {
@@ -121,6 +122,17 @@ class TransactionController extends BaseController{
                         : $shareAmount;
 
                     $distributedAmount += $currentAmount;
+
+                    // calculate frais de transfert
+                    $transferFee = $montantFraisModel->findByOperationAndMontant(3,$currentAmount);
+                    if (!$transferFee) {
+                        throw new Exception(
+                            "Aucun barème trouvé."
+                        );
+                    }
+
+                    $currentTransferFee = (float)$transferFee['frais'];
+                    $totalTransferFee += $currentTransferFee;
 
                     $operatorInfo = $prefixConfigModel->findOperatorByNumero($numeroReceiver);
                     $currentCommission = 0;
@@ -163,6 +175,7 @@ class TransactionController extends BaseController{
                         'receiver_id' => $receiver['id'],
                         'receiver_numero' => $numeroReceiver,
                         'amount' => $currentAmount,
+                        'transfer_fee' => $currentTransferFee,
                         'commission' => $currentCommission,
                         'withdrawal_fee' => $currentWithdrawalFee,
                     ];
@@ -171,7 +184,7 @@ class TransactionController extends BaseController{
                     $totalWithdrawalFee += $currentWithdrawalFee;
                 }
 
-                $totalDebit = (float) $montant + (float) $frais['frais'] + $totalCommission;
+                $totalDebit = (float) $montant + $totalTransferFee + $totalCommission;
                 if ($includeWithdrawalFee) {
                     $totalDebit += (float) $totalWithdrawalFee;
                 }
@@ -197,7 +210,7 @@ class TransactionController extends BaseController{
                         'numero_sender' => $sender['numero'],
                         'numero_receiver' => $operation['receiver_numero'],
                         'montant' => $operation['amount'],
-                        'frais' => $includeWithdrawalFee ? $operation['withdrawal_fee'] : $frais['frais'],
+                        'frais' => $operation['transfer_fee'],
                         'commission' => $operation['commission']
                     ]);
                 }
