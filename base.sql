@@ -1,6 +1,7 @@
 PRAGMA foreign_keys = OFF;
 
 DROP TABLE IF EXISTS commission_config;
+DROP TABLE IF EXISTS reduction_config;
 DROP TABLE IF EXISTS operateur;
 DROP TABLE IF EXISTS statut_operateur;
 DROP TABLE IF EXISTS prefix_config;
@@ -86,6 +87,12 @@ CREATE TABLE historique_transaction (
     FOREIGN KEY (id_type_operation) REFERENCES operation_type(id),
     FOREIGN KEY (numero_sender) REFERENCES utilisateur(numero),
     FOREIGN KEY (numero_receiver) REFERENCES utilisateur(numero)
+);
+
+-- reduction_config
+CREATE TABLE reduction_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage REAL NOT NULL
 );
 
 PRAGMA foreign_keys = ON;
@@ -223,3 +230,6 @@ ORDER BY op.nom;
 -- Résultat attendu:
 -- Orange | 1000 | 50 | 1
 -- Airtel | 1000 | 0 | 1
+
+INSERT INTO reduction_config (pourcentage) VALUES
+(5);

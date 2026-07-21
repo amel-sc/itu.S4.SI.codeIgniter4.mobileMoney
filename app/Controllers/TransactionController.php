@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Models\HistoriqueTransactionModel;
 use App\Models\CommissionConfigModel;
+use App\Models\ReductionConfigModel;
 use App\Models\PrefixConfigModel;
 use App\Models\OperationTypeModel;
 use App\Models\UtilisateurModel;
@@ -42,6 +43,7 @@ class TransactionController extends BaseController{
         $montantFraisModel = new MontantFraisModel();
         $prefixConfigModel = new PrefixConfigModel();
         $commissionConfigModel = new CommissionConfigModel();
+        $reductionConfigModel = new ReductionConfigModel();
 
         $db = \Config\Database::connect();
 
@@ -131,13 +133,20 @@ class TransactionController extends BaseController{
                         );
                     }
 
-                    $currentTransferFee = (float)$transferFee['frais'];
-                    $totalTransferFee += $currentTransferFee;
-
                     $operatorInfo = $prefixConfigModel->findOperatorByNumero($numeroReceiver);
                     $currentCommission = 0;
                     $currentWithdrawalFee = 0;
 
+                    $currentTransferFee = (float) $transferFee['frais'];
+
+                    $reduction = $reductionConfigModel->first();
+
+                    if (strtolower(trim((string) ($operatorInfo['statut_operateur'] ?? ''))) == 'operateur') {
+                        $currentTransferFee = $currentTransferFee * ((100 - $reduction['pourcentage']) / 100);
+                    }
+
+                    $totalTransferFee += $currentTransferFee;
+                    
                     if ($operatorInfo) {
                         $statutOperateur = strtolower(trim((string) ($operatorInfo['statut_operateur'] ?? '')));
 
