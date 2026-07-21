@@ -1,6 +1,7 @@
 PRAGMA foreign_keys = OFF;
 
 DROP TABLE IF EXISTS commission_config;
+DROP TABLE IF EXISTS reduction_config;
 DROP TABLE IF EXISTS operateur;
 DROP TABLE IF EXISTS statut_operateur;
 DROP TABLE IF EXISTS prefix_config;
@@ -9,6 +10,9 @@ DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS montant_frais;
 DROP TABLE IF EXISTS operation_type;
 DROP TABLE IF EXISTS historique_transaction;
+DROP TABLE IF EXISTS epargne;
+
+
 
 -- Statuts des opérateurs
 CREATE TABLE statut_operateur (
@@ -88,6 +92,20 @@ CREATE TABLE historique_transaction (
     FOREIGN KEY (numero_receiver) REFERENCES utilisateur(numero)
 );
 
+-- reduction_config
+CREATE TABLE reduction_config (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage REAL NOT NULL
+);
+
+CREATE TABLE epargne (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_client INTEGER NOT NULL,
+    pourcentage REAL NOT NULL,
+    solde REAL NOT NULL,
+    FOREIGN KEY (id_client) REFERENCES utilisateur(id)
+);
+
 PRAGMA foreign_keys = ON;
 
 -- Données de base
@@ -116,10 +134,20 @@ INSERT INTO role_utilisateur (libelle) VALUES
 INSERT INTO utilisateur (prenom, nom, numero, id_role, solde) VALUES
 ('Admin', 'Operateur', '0370000000', 1, 1000000),
 ('Jean', 'Client', '0331234567', 2, 500000),
+('John', 'Client', '0331264567', 2, 500000),
 ('Marie', 'Client', '0371266567', 2, 250000),
 ('Pierre', 'Client', '0376934567', 2, 250000),
 ('Lolo', 'Client', '0371234567', 2, 250000),
 ('Paul', 'Client', '0381234567', 2, 200000);
+
+INSERT INTO epargne (id_client , pourcentage , solde) VALUES
+(1, 20, 0),
+(2, 20, 0),
+(3, 20, 0),
+(4, 20, 0),
+(5, 20, 0),
+(6, 20, 0),
+(7, 20, 0);
 
 INSERT INTO operation_type (libelle) VALUES
 ('Depot'),
@@ -167,8 +195,7 @@ INSERT INTO montant_frais (id_operation_type, montant1, montant2, frais) VALUES
 -- Scénarios de test
 INSERT INTO historique_transaction (id_type_operation, numero_sender, numero_receiver, montant, frais, commission) VALUES
 (2, '0370000000', NULL, 1000, 50, 0),
-(3, '0370000000', '0331234567', 1000, 50, 50),
-(3, '0370000000', '0381234567', 1000, 50, 0);
+(3, '0370000000', '0331234567', 1000, 50, 50);
 
 -- Résultats attendus
 -- 1) Liste des opérateurs et de leurs préfixes
@@ -223,3 +250,6 @@ ORDER BY op.nom;
 -- Résultat attendu:
 -- Orange | 1000 | 50 | 1
 -- Airtel | 1000 | 0 | 1
+
+INSERT INTO reduction_config (pourcentage) VALUES
+(5);

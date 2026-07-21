@@ -2,6 +2,7 @@
 $currentUser = session('user') ?? [];
 $homeRoute = ((int) ($currentUser['id_role'] ?? 0) === 2) ? '/client/dashboard' : '/home';
 ?>
+
 <nav class="navbar navbar-expand-lg navbar-dark main-navbar shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="<?= site_url($homeRoute) ?>">

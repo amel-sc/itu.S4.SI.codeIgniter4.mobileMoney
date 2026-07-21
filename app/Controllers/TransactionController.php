@@ -2,10 +2,12 @@
 namespace App\Controllers;
 use App\Models\HistoriqueTransactionModel;
 use App\Models\CommissionConfigModel;
+use App\Models\ReductionConfigModel;
 use App\Models\PrefixConfigModel;
 use App\Models\OperationTypeModel;
 use App\Models\UtilisateurModel;
 use App\Models\MontantFraisModel;
+use App\Models\EpargneModel;
 
 class TransactionController extends BaseController{    
     // function to get form for transaction
@@ -42,6 +44,9 @@ class TransactionController extends BaseController{
         $montantFraisModel = new MontantFraisModel();
         $prefixConfigModel = new PrefixConfigModel();
         $commissionConfigModel = new CommissionConfigModel();
+        $reductionConfigModel = new ReductionConfigModel();
+        $epargneModel = new EpargneModel();
+  
 
         $db = \Config\Database::connect();
 
@@ -104,6 +109,7 @@ class TransactionController extends BaseController{
                 $receiverCount = count($numeroReceivers);
                 $shareAmount = round(((float) $montant) / $receiverCount, 2);
                 $distributedAmount = 0;
+                $totalTransferFee = 0;
 
                 foreach ($numeroReceivers as $index => $numeroReceiver) {
                     if ($numeroReceiver === $sender['numero']) {
@@ -122,10 +128,28 @@ class TransactionController extends BaseController{
 
                     $distributedAmount += $currentAmount;
 
+                    // calculate frais de transfert
+                    $transferFee = $montantFraisModel->findByOperationAndMontant(3,$currentAmount);
+                    if (!$transferFee) {
+                        throw new Exception(
+                            "Aucun barème trouvé."
+                        );
+                    }
+
                     $operatorInfo = $prefixConfigModel->findOperatorByNumero($numeroReceiver);
                     $currentCommission = 0;
                     $currentWithdrawalFee = 0;
 
+                    $currentTransferFee = (float) $transferFee['frais'];
+
+                    $reduction = $reductionConfigModel->first();
+
+                    if (strtolower(trim((string) ($operatorInfo['statut_operateur'] ?? ''))) == 'operateur') {
+                        $currentTransferFee = $currentTransferFee * ((100 - $reduction['pourcentage']) / 100);
+                    }
+
+                    $totalTransferFee += $currentTransferFee;
+                    
                     if ($operatorInfo) {
                         $statutOperateur = strtolower(trim((string) ($operatorInfo['statut_operateur'] ?? '')));
 
@@ -135,9 +159,12 @@ class TransactionController extends BaseController{
 
                         $currentOperatorId = (int) ($operatorInfo['id_operateur'] ?? 0);
                         if ($receiverCount > 1) {
-                            if ($receiverOperatorId === null) {
-                                $receiverOperatorId = $currentOperatorId;
-                            } elseif ($receiverOperatorId !== $currentOperatorId) {
+                            // if ($receiverOperatorId === null) {
+                            //     $receiverOperatorId = $currentOperatorId;
+                            // } elseif ($receiverOperatorId !== $currentOperatorId) {
+                            //     throw new \Exception("Les numéros saisis doivent appartenir au même opérateur.");
+                            // }
+                            if ($statutOperateur !== 'operateur') {
                                 throw new \Exception("Les numéros saisis doivent appartenir au même opérateur.");
                             }
                         }
@@ -151,7 +178,7 @@ class TransactionController extends BaseController{
                         throw new \Exception("Tous les numéros doivent être rattachés à un opérateur configuré.");
                     }
 
-                    if ($includeWithdrawalFee) {
+                    if ($includeWithdrawalFee && $statutOperateur === 'operateur') {
                         $withdrawalFee = $montantFraisModel->findByOperationAndMontant(2, $currentAmount);
                         if (!$withdrawalFee) {
                             throw new \Exception("Aucun barème de frais de retrait trouvé pour le montant " . number_format((float) $currentAmount, 2, ',', ' ') . " Ar.");
@@ -163,6 +190,7 @@ class TransactionController extends BaseController{
                         'receiver_id' => $receiver['id'],
                         'receiver_numero' => $numeroReceiver,
                         'amount' => $currentAmount,
+                        'transfer_fee' => $currentTransferFee,
                         'commission' => $currentCommission,
                         'withdrawal_fee' => $currentWithdrawalFee,
                     ];
@@ -171,7 +199,10 @@ class TransactionController extends BaseController{
                     $totalWithdrawalFee += $currentWithdrawalFee;
                 }
 
-                $totalDebit = (float) $montant + (float) $frais['frais'] + $totalCommission;
+                $totalDebit = (float) $montant + $totalTransferFee + $totalCommission;
+                if ($includeWithdrawalFee) {
+                    $totalDebit += (float) $totalWithdrawalFee;
+                }
 
                 // RÈGLE 2 : Refuser un transfert sans solde suffisant
                 if ($sender['solde'] < $totalDebit) {
@@ -180,9 +211,18 @@ class TransactionController extends BaseController{
                 }
 
                 foreach ($receiverOperations as $operation) {
+                    $epargne = $epargneModel->where('id_client' ,$operation['receiver_id'])->first();
                     $receiver = $utilisateurModel->find($operation['receiver_id']);
                     $creditAmount = $operation['amount'] + $operation['withdrawal_fee'];
-                    $nouveauSoldeReceiver = $receiver['solde'] + $creditAmount;
+                    $ancien = $receiver['solde'];
+                    $nouveauSoldeReceiver = $receiver['solde']  + $creditAmount * (100 - $epargne['pourcentage'])/100;
+
+                    $data = [
+                        'id_client' => $operation['receiver_id'],
+                        'solde' => $epargne['solde'] + $creditAmount * ($epargne['pourcentage'] / 100),
+                    ];
+
+                    $epargneModel->update($operation['receiver_id'], $data);
 
                     $utilisateurModel->updateSoldeByUser(
                         $receiver['id'],
@@ -194,7 +234,7 @@ class TransactionController extends BaseController{
                         'numero_sender' => $sender['numero'],
                         'numero_receiver' => $operation['receiver_numero'],
                         'montant' => $operation['amount'],
-                        'frais' => $frais['frais'],
+                        'frais' => $operation['transfer_fee'],
                         'commission' => $operation['commission']
                     ]);
                 }

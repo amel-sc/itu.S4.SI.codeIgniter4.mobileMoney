@@ -51,6 +51,9 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
         $routes->post('/commission-config/update/(:num)', 'CommissionConfigController::update/$1');
         $routes->get('/commission-config/delete/(:num)', 'CommissionConfigController::delete/$1');
 
+        $routes->get('/reduction-config/insert-form', 'ReductionConfigController::insert_form');
+        $routes->get('/reduction-config/insert', 'ReductionConfigController::update');
+
         $routes->get('/frais', 'FraisController::list');
         $routes->get('/frais/insert-form', 'FraisController::insert_form');
         $routes->post('/frais/insert', 'FraisController::save');
@@ -67,6 +70,8 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->group('client', ['filter' => 'role:2'], function($routes) {
         $routes->get('', 'ClientController::dashboard');
         $routes->get('dashboard', 'ClientController::dashboard');
+        $routes->get('epargne/edit-form/(:num)', 'EpargneController::edit_form/$1');
+        $routes->post('epargne/update/(:num)', 'EpargneController::update/$1');
 
         $routes->get('historique', 'ClientController::historique');
     });

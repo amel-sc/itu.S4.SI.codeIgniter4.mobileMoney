@@ -5,12 +5,14 @@ namespace App\Controllers;
 use App\Models\HistoriqueTransactionModel;
 use App\Models\OperationTypeModel;
 use App\Models\UtilisateurModel;
+use App\Models\EpargneModel;
 
 class ClientController extends BaseController
 {
     public function dashboard()
     {
         $user = session()->get('user');
+        $epargneModel = new EpargneModel();
 
         $utilisateurModel = new UtilisateurModel();
         $freshUser = $user ? $utilisateurModel->find($user['id']) : null;
@@ -18,10 +20,13 @@ class ClientController extends BaseController
             session()->set('user', $freshUser);
             $user = $freshUser;
         }
+        $epargne = $epargneModel->where('id_client' , $user['id'])->first();
+        $soldeEpargne = $epargne['solde'];
 
         return view('client/dashboard', [
             'title' => 'Mon espace',
-            'user' => $user
+            'user' => $user,
+            'soldeEpargne' => $soldeEpargne
         ]);
     }
 

@@ -9,19 +9,25 @@ if ($role === 2) {
             'label' => 'Mon espace',
             'icon' => 'bi bi-speedometer2',
             'route' => '/client/dashboard',
-            'active' => $currentUri === 'client/dashboard'
+            'active' => str_ends_with($currentUri, 'client/dashboard')
         ],
         [
             'label' => 'Transaction',
             'icon' => 'bi bi-arrow-left-right',
             'route' => '/transaction/form',
-            'active' => strpos($currentUri, 'transaction') === 0
+            'active' => str_ends_with($currentUri, 'transaction/form')
+        ],        
+        [
+            'label' => 'Epargne',
+            'icon' => 'bi bi-arrow-left-right',
+            'route' => '/client/epargne/edit-form/'.$user['id'],
+            'active' => str_ends_with($currentUri, '/epargne/edit-form/')
         ],
         [
             'label' => 'Historique',
             'icon' => 'bi bi-clock-history',
             'route' => '/client/historique',
-            'active' => strpos($currentUri, 'client/historique') === 0
+            'active' => str_ends_with($currentUri, 'client/historique')
         ]
     ];
 } else {
@@ -30,55 +36,55 @@ if ($role === 2) {
             'label' => 'Tableau de bord',
             'icon' => 'bi bi-speedometer2',
             'route' => '/home',
-            'active' => $currentUri === 'home' || $currentUri === ''
+            'active' => str_ends_with($currentUri, 'home')
         ],
         [
             'label' => 'Gestion des Préfixes',
             'icon' => 'bi bi-pencil-square',
             'route' => '/prefix',
-            'active' => strpos($currentUri, 'prefix') === 0
+            'active' => str_ends_with($currentUri, 'prefix')
         ],
         [
             'label' => 'Opérateurs',
             'icon' => 'bi bi-building',
             'route' => '/operateurs',
-            'active' => strpos($currentUri, 'operateurs') === 0
+            'active' => str_ends_with($currentUri, 'operateurs')
         ],
         [
             'label' => 'Commissions',
             'icon' => 'bi bi-percent',
             'route' => '/commission-config',
-            'active' => strpos($currentUri, 'commission-config') === 0
+            'active' => str_ends_with($currentUri, 'commission-config')
         ],
         [
             'label' => 'Gestion des Frais',
             'icon' => 'bi bi-cash-coin',
             'route' => '/frais',
-            'active' => strpos($currentUri, 'frais') === 0
+            'active' => str_ends_with($currentUri, 'frais')
         ],
         [
             'label' => 'Transaction',
             'icon' => 'bi bi-arrow-left-right',
             'route' => '/transaction/form',
-            'active' => strpos($currentUri, 'transaction') === 0
+            'active' => str_ends_with($currentUri, 'transaction/form')
         ],
         [
             'label' => 'Situation des gains',
             'icon' => 'bi bi-graph-up-arrow',
             'route' => '/gains',
-            'active' => strpos($currentUri, 'gains') === 0
+            'active' => str_ends_with($currentUri, 'gains')
         ],
         [
             'label' => 'Comptes clients',
             'icon' => 'bi bi-people',
             'route' => '/clients',
-            'active' => strpos($currentUri, 'clients') === 0
+            'active' => str_ends_with($currentUri, 'clients')
         ],
         [
             'label' => 'Historique',
             'icon' => 'bi bi-clock-history',
             'route' => '/historique',
-            'active' => strpos($currentUri, 'historique') === 0
+            'active' => str_ends_with($currentUri, 'historique')
         ]
     ];
 }

@@ -210,3 +210,47 @@
     - /client/dashboard
     - /client/historique
 
+# Version 3
+## transaction transfer avec reduction
+### base
+- Créer une table reduction_config : id, pourcent
+### fonction
+- Dans la fonction transaction() de transactionController : ajouter une vérification du si le receiver à une statut 'opérateur'
+    - Si oui, alors reduction du frais de transfer
+    - Sinon, aucune reduction du frais de transfer
+### page
+- transaction/form
+
+## page de modification de la reduction
+### base
+### fonction
+- updatePercent($percent) dans ReductionConfigModel : focntion pour modifier la première reduction dans la table reduction_config si elle exist
+- update() dans controller : pour modifier le pourcentage de reduction et redirection vers la page de reduction/form
+### page
+- rediction/form : formulaire : input de poucentage, bouton valider
+
+## promotion en poucentage sur le vrai de transfert en même operateur
+## sauvegarder dans la base
+
+
+# Alea (Lorick - 3892)
+# Epargne
+## Base 
+- creation de la table epargne (id , id_utilisateur , pourcentage , solde)
+
+## model
+- creation du model epargne
+
+## Controller
+- creation du controller epargne
+- modifier fonction transaction de TransactionController
+
+## page 
+### client
+- creation des pages form update epargne
+- ajouter epargne dans dashboard client 
+
+### operateur 
+- ajouter col epargne dans compte client
+
+

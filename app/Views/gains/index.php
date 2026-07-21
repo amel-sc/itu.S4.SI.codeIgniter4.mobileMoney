@@ -18,7 +18,7 @@
     </div>
     <div class="col-xl-4 col-md-6">
         <div class="stat-card green-gradient">
-            <div class="stat-number"><?= number_format($totalGeneral, 2, ',', ' ') ?> Ar</div>
+            <div class="stat-number"><?= number_format($totalGeneralNoCommission, 2, ',', ' ') ?> Ar</div>
             <div class="stat-label">Total général des gains</div>
             <i class="bi bi-graph-up-arrow stat-icon"></i>
         </div>
