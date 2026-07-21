@@ -116,6 +116,7 @@ INSERT INTO role_utilisateur (libelle) VALUES
 INSERT INTO utilisateur (prenom, nom, numero, id_role, solde) VALUES
 ('Admin', 'Operateur', '0370000000', 1, 1000000),
 ('Jean', 'Client', '0331234567', 2, 500000),
+('John', 'Client', '0331264567', 2, 500000),
 ('Marie', 'Client', '0371266567', 2, 250000),
 ('Pierre', 'Client', '0376934567', 2, 250000),
 ('Lolo', 'Client', '0371234567', 2, 250000),

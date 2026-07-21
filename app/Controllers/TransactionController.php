@@ -147,9 +147,12 @@ class TransactionController extends BaseController{
 
                         $currentOperatorId = (int) ($operatorInfo['id_operateur'] ?? 0);
                         if ($receiverCount > 1) {
-                            if ($receiverOperatorId === null) {
-                                $receiverOperatorId = $currentOperatorId;
-                            } elseif ($receiverOperatorId !== $currentOperatorId) {
+                            // if ($receiverOperatorId === null) {
+                            //     $receiverOperatorId = $currentOperatorId;
+                            // } elseif ($receiverOperatorId !== $currentOperatorId) {
+                            //     throw new \Exception("Les numéros saisis doivent appartenir au même opérateur.");
+                            // }
+                            if ($statutOperateur !== 'operateur') {
                                 throw new \Exception("Les numéros saisis doivent appartenir au même opérateur.");
                             }
                         }
