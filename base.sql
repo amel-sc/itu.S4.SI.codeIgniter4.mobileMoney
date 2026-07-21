@@ -168,8 +168,7 @@ INSERT INTO montant_frais (id_operation_type, montant1, montant2, frais) VALUES
 -- Scénarios de test
 INSERT INTO historique_transaction (id_type_operation, numero_sender, numero_receiver, montant, frais, commission) VALUES
 (2, '0370000000', NULL, 1000, 50, 0),
-(3, '0370000000', '0331234567', 1000, 50, 50),
-(3, '0370000000', '0381234567', 1000, 50, 0);
+(3, '0370000000', '0331234567', 1000, 50, 50);
 
 -- Résultats attendus
 -- 1) Liste des opérateurs et de leurs préfixes
