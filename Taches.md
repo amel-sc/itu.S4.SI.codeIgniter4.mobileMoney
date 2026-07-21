@@ -231,3 +231,26 @@
 
 ## promotion en poucentage sur le vrai de transfert en même operateur
 ## sauvegarder dans la base
+
+
+# Alea (Lorick - 3892)
+# Epargne
+## Base 
+- creation de la table epargne (id , id_utilisateur , pourcentage , solde)
+
+## model
+- creation du model epargne
+
+## Controller
+- creation du controller epargne
+- modifier fonction transaction de TransactionController
+
+## page 
+### client
+- creation des pages form update epargne
+- ajouter epargne dans dashboard client 
+
+### operateur 
+- ajouter col epargne dans compte client
+
+

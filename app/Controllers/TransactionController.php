@@ -7,6 +7,7 @@ use App\Models\PrefixConfigModel;
 use App\Models\OperationTypeModel;
 use App\Models\UtilisateurModel;
 use App\Models\MontantFraisModel;
+use App\Models\EpargneModel;
 
 class TransactionController extends BaseController{    
     // function to get form for transaction
@@ -44,6 +45,8 @@ class TransactionController extends BaseController{
         $prefixConfigModel = new PrefixConfigModel();
         $commissionConfigModel = new CommissionConfigModel();
         $reductionConfigModel = new ReductionConfigModel();
+        $epargneModel = new EpargneModel();
+  
 
         $db = \Config\Database::connect();
 
@@ -208,9 +211,18 @@ class TransactionController extends BaseController{
                 }
 
                 foreach ($receiverOperations as $operation) {
+                    $epargne = $epargneModel->where('id_client' ,$operation['receiver_id'])->first();
                     $receiver = $utilisateurModel->find($operation['receiver_id']);
                     $creditAmount = $operation['amount'] + $operation['withdrawal_fee'];
-                    $nouveauSoldeReceiver = $receiver['solde'] + $creditAmount;
+                    $ancien = $receiver['solde'];
+                    $nouveauSoldeReceiver = $receiver['solde']  + $creditAmount * (100 - $epargne['pourcentage'])/100;
+
+                    $data = [
+                        'id_client' => $operation['receiver_id'],
+                        'solde' => $epargne['solde'] + $creditAmount * ($epargne['pourcentage'] / 100),
+                    ];
+
+                    $epargneModel->update($operation['receiver_id'], $data);
 
                     $utilisateurModel->updateSoldeByUser(
                         $receiver['id'],

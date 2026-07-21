@@ -18,6 +18,14 @@
             </div>
         </div>
     </div>
+    <div class="col-xl-4 col-md-6">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="text-muted small mb-2">Solde Epargne </div>
+                <div class="fw-bold fs-4 text-success"><?= number_format((float) ($soldeEpargne ?? 0), 2, ',', ' ') ?> Ar</div>
+            </div>
+        </div>
+    </div>
     <div class="col-xl-4 col-md-12">
         <div class="card h-100 border-0 shadow-sm">
             <div class="card-body">

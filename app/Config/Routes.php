@@ -70,6 +70,8 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->group('client', ['filter' => 'role:2'], function($routes) {
         $routes->get('', 'ClientController::dashboard');
         $routes->get('dashboard', 'ClientController::dashboard');
+        $routes->get('epargne/edit-form/(:num)', 'EpargneController::edit_form/$1');
+        $routes->post('epargne/update/(:num)', 'EpargneController::update/$1');
 
         $routes->get('historique', 'ClientController::historique');
     });

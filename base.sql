@@ -10,6 +10,9 @@ DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS montant_frais;
 DROP TABLE IF EXISTS operation_type;
 DROP TABLE IF EXISTS historique_transaction;
+DROP TABLE IF EXISTS epargne;
+
+
 
 -- Statuts des opérateurs
 CREATE TABLE statut_operateur (
@@ -95,6 +98,14 @@ CREATE TABLE reduction_config (
     pourcentage REAL NOT NULL
 );
 
+CREATE TABLE epargne (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_client INTEGER NOT NULL,
+    pourcentage REAL NOT NULL,
+    solde REAL NOT NULL,
+    FOREIGN KEY (id_client) REFERENCES utilisateur(id)
+);
+
 PRAGMA foreign_keys = ON;
 
 -- Données de base
@@ -128,6 +139,15 @@ INSERT INTO utilisateur (prenom, nom, numero, id_role, solde) VALUES
 ('Pierre', 'Client', '0376934567', 2, 250000),
 ('Lolo', 'Client', '0371234567', 2, 250000),
 ('Paul', 'Client', '0381234567', 2, 200000);
+
+INSERT INTO epargne (id_client , pourcentage , solde) VALUES
+(1, 20, 0),
+(2, 20, 0),
+(3, 20, 0),
+(4, 20, 0),
+(5, 20, 0),
+(6, 20, 0),
+(7, 20, 0);
 
 INSERT INTO operation_type (libelle) VALUES
 ('Depot'),

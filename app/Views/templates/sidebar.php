@@ -16,6 +16,12 @@ if ($role === 2) {
             'icon' => 'bi bi-arrow-left-right',
             'route' => '/transaction/form',
             'active' => str_ends_with($currentUri, 'transaction/form')
+        ],        
+        [
+            'label' => 'Epargne',
+            'icon' => 'bi bi-arrow-left-right',
+            'route' => '/client/epargne/edit-form/'.$user['id'],
+            'active' => str_ends_with($currentUri, '/epargne/edit-form/')
         ],
         [
             'label' => 'Historique',
