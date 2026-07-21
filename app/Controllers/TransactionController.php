@@ -151,7 +151,7 @@ class TransactionController extends BaseController{
                         throw new \Exception("Tous les numéros doivent être rattachés à un opérateur configuré.");
                     }
 
-                    if ($includeWithdrawalFee) {
+                    if ($includeWithdrawalFee && $statutOperateur === 'operateur') {
                         $withdrawalFee = $montantFraisModel->findByOperationAndMontant(2, $currentAmount);
                         if (!$withdrawalFee) {
                             throw new \Exception("Aucun barème de frais de retrait trouvé pour le montant " . number_format((float) $currentAmount, 2, ',', ' ') . " Ar.");
