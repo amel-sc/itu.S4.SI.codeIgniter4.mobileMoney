@@ -60,7 +60,7 @@ if ($role === 2) {
             'label' => 'Transaction',
             'icon' => 'bi bi-arrow-left-right',
             'route' => '/transaction/form',
-            'active' => str_ends_with($currentUri, 'transaction')
+            'active' => str_ends_with($currentUri, 'transaction/form')
         ],
         [
             'label' => 'Situation des gains',
